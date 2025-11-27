@@ -1,6 +1,7 @@
 package Pertemuan14;
 
 import java.util.Scanner;
+
 public class NilaiMahasiswa02 {
     public static int[] isianArray(int N) {
         Scanner input = new Scanner(System.in);
@@ -13,6 +14,13 @@ public class NilaiMahasiswa02 {
         }
         return nilai;
     }
+
+    public static void tampilArray(int[] nilai) {
+        System.out.println("\n=== Daftar Nilai Mahasiswa ===");
+        for (int i = 0; i < nilai.length; i++) {
+            System.out.println("Mahasiswa ke-" + (i + 1) + ": " + nilai[i]);
+        }
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -20,11 +28,8 @@ public class NilaiMahasiswa02 {
         int N = sc.nextInt();
 
         int[] nilaiMahasiswa = isianArray(N);
+        tampilArray(nilaiMahasiswa);
 
-        System.out.println("\nNilai mahasiswa yang telah diinput:");
-        for (int i = 0; i < nilaiMahasiswa.length; i++) {
-            System.out.println("Mahasiswa ke-" + (i + 1) + ": " + nilaiMahasiswa[i]);
-        }
         sc.close();
     }
 }

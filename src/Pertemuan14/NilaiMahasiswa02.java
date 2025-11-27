@@ -21,6 +21,14 @@ public class NilaiMahasiswa02 {
             System.out.println("Mahasiswa ke-" + (i + 1) + ": " + nilai[i]);
         }
     }
+
+    public static int hitTot(int[] nilai) {
+        int total = 0;
+        for (int i = 0; i < nilai.length; i++) {
+            total += nilai[i];
+        }
+        return total;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -29,6 +37,9 @@ public class NilaiMahasiswa02 {
 
         int[] nilaiMahasiswa = isianArray(N);
         tampilArray(nilaiMahasiswa);
+
+        int totalNilai = hitTot(nilaiMahasiswa);
+        System.out.println("\nTotal nilai seluruh mahasiswa: " + totalNilai);
 
         sc.close();
     }

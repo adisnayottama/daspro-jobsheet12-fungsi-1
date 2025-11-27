@@ -1,7 +1,6 @@
 package Pertemuan14;
 
 import java.util.Scanner;
-
 public class NilaiMahasiswa02 {
     public static int[] isianArray(int N) {
         Scanner input = new Scanner(System.in);

@@ -6,33 +6,52 @@ public class RekapPenjualanCafe02 {
     private int[][] dataPenjualan;
     private String[] namaMenu;
     private String[] namaHari;
-    private final int JUMLAH_MENU = 5;
-    private final int JUMLAH_HARI = 7;
+    private int jumlahMenu;
+    private int jumlahHari;
 
     public RekapPenjualanCafe02() {
-        dataPenjualan = new int[JUMLAH_MENU][JUMLAH_HARI];
-        namaMenu = new String[] { "Kopi", "Teh", "Es Kelapa Muda", "Roti Bakar", "Gorengan" };
-        namaHari = new String[] { "Hari ke 1", "Hari ke 2", "Hari ke 3", "Hari ke 4",
-                "Hari ke 5", "Hari ke 6", "Hari ke 7" };
+    }
+
+    public void inputJumlahMenuDanHari() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== INPUT JUMLAH MENU DAN HARI ===");
+
+        System.out.print("Masukkan jumlah menu: ");
+        jumlahMenu = scanner.nextInt();
+        scanner.nextLine();
+
+        namaMenu = new String[jumlahMenu];
+        System.out.println("\nMasukkan nama menu:");
+        for (int i = 0; i < jumlahMenu; i++) {
+            System.out.print("Menu ke-" + (i + 1) + ": ");
+            namaMenu[i] = scanner.nextLine();
+        }
+
+        System.out.print("\nMasukkan jumlah hari penjualan: ");
+        jumlahHari = scanner.nextInt();
+
+        dataPenjualan = new int[jumlahMenu][jumlahHari];
+        namaHari = new String[jumlahHari];
+        for (int i = 0; i < jumlahHari; i++) {
+            namaHari[i] = "Hari ke " + (i + 1);
+        }
+
+        System.out.println("\nKonfigurasi berhasil! " + jumlahMenu + " menu selama " + jumlahHari + " hari.\n");
     }
 
     public void inputDataPenjualan() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=== INPUT DATA PENJUALAN ===");
 
-        int[][] dataDariScreenshot = {
-                { 20, 20, 25, 20, 10, 60, 10 },
-                { 30, 80, 40, 10, 15, 20, 25 },
-                { 5, 9, 20, 25, 10, 5, 45 },
-                { 50, 8, 17, 18, 10, 30, 6 },
-                { 15, 10, 16, 15, 10, 10, 55 }
-        };
-
-        for (int i = 0; i < JUMLAH_MENU; i++) {
-            for (int j = 0; j < JUMLAH_HARI; j++) {
-                dataPenjualan[i][j] = dataDariScreenshot[i][j];
+        for (int i = 0; i < jumlahMenu; i++) {
+            System.out.println("\nMenu: " + namaMenu[i]);
+            for (int j = 0; j < jumlahHari; j++) {
+                System.out.print("Masukkan penjualan untuk " + namaHari[j] + ": ");
+                dataPenjualan[i][j] = scanner.nextInt();
             }
         }
-
-        System.out.println("Data penjualan berhasil diinput dari data yang diberikan!\n");
+        System.out.println("\nData penjualan berhasil diinput!\n");
     }
 
     public void tampilkanDataPenjualan() {
@@ -44,14 +63,15 @@ public class RekapPenjualanCafe02 {
         }
         System.out.println();
 
-        for (int i = 0; i < 20 + 12 * JUMLAH_HARI; i++) {
+        int totalWidth = 20 + 12 * jumlahHari;
+        for (int i = 0; i < totalWidth; i++) {
             System.out.print("-");
         }
         System.out.println();
 
-        for (int i = 0; i < JUMLAH_MENU; i++) {
+        for (int i = 0; i < jumlahMenu; i++) {
             System.out.printf("%-20s", namaMenu[i]);
-            for (int j = 0; j < JUMLAH_HARI; j++) {
+            for (int j = 0; j < jumlahHari; j++) {
                 System.out.printf("%-12d", dataPenjualan[i][j]);
             }
             System.out.println();
@@ -60,15 +80,20 @@ public class RekapPenjualanCafe02 {
     }
 
     public void tampilkanMenuTerlaris() {
+        if (jumlahMenu == 0) {
+            System.out.println("Belum ada data menu!");
+            return;
+        }
+
         int maxTotal = 0;
         String menuTerlaris = "";
-        int[] totalPerMenu = new int[JUMLAH_MENU];
+        int[] totalPerMenu = new int[jumlahMenu];
 
         System.out.println("=== MENU DENGAN PENJUALAN TERTINGGI ===");
 
-        for (int i = 0; i < JUMLAH_MENU; i++) {
+        for (int i = 0; i < jumlahMenu; i++) {
             int total = 0;
-            for (int j = 0; j < JUMLAH_HARI; j++) {
+            for (int j = 0; j < jumlahHari; j++) {
                 total += dataPenjualan[i][j];
             }
             totalPerMenu[i] = total;
@@ -86,30 +111,40 @@ public class RekapPenjualanCafe02 {
     }
 
     public void tampilkanRataRataPenjualan() {
+        if (jumlahMenu == 0) {
+            System.out.println("Belum ada data menu!");
+            return;
+        }
+
         System.out.println("=== RATA-RATA PENJUALAN PER MENU ===");
         System.out.printf("%-20s %-15s\n", "Menu", "Rata-rata");
         System.out.println("----------------------------------------");
 
-        for (int i = 0; i < JUMLAH_MENU; i++) {
+        for (int i = 0; i < jumlahMenu; i++) {
             int total = 0;
-            for (int j = 0; j < JUMLAH_HARI; j++) {
+            for (int j = 0; j < jumlahHari; j++) {
                 total += dataPenjualan[i][j];
             }
-            double rataRata = (double) total / JUMLAH_HARI;
+            double rataRata = (double) total / jumlahHari;
             System.out.printf("%-20s %-15.2f\n", namaMenu[i], rataRata);
         }
         System.out.println();
     }
 
     public void tampilkanAnalisisTambahan() {
+        if (jumlahMenu == 0) {
+            System.out.println("Belum ada data menu!");
+            return;
+        }
+
         System.out.println("=== ANALISIS TAMBAHAN ===");
 
-        for (int i = 0; i < JUMLAH_MENU; i++) {
+        for (int i = 0; i < jumlahMenu; i++) {
             int maxHari = 0;
             int maxPenjualan = 0;
 
-            for (int j = 0; j < JUMLAH_HARI; j++) {
-                if (dataPenjualan[i][j] > maxPenjualan) { 
+            for (int j = 0; j < jumlahHari; j++) {
+                if (dataPenjualan[i][j] > maxPenjualan) {
                     maxPenjualan = dataPenjualan[i][j];
                     maxHari = j + 1;
                 }
@@ -123,6 +158,7 @@ public class RekapPenjualanCafe02 {
     public static void main(String[] args) {
         RekapPenjualanCafe02 kafe = new RekapPenjualanCafe02();
 
+        kafe.inputJumlahMenuDanHari();
         kafe.inputDataPenjualan();
         kafe.tampilkanDataPenjualan();
         kafe.tampilkanMenuTerlaris();

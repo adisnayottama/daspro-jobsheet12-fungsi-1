@@ -8,8 +8,9 @@ public class PengunjungCafe02 {
         }
         System.out.println();
     }
-
     public static void main(String[] args) {
         daftarPengunjung("Ali", "Budi", "Citra");
+        daftarPengunjung("Andi");
+        daftarPengunjung("Doni", "Eti", "Galih");
     }
 }
